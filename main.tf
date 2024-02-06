@@ -69,7 +69,7 @@ resource "google_compute_instance" "prod-vm" {
 
     inline = [
       "sudo adduser ansible --gecos '' --disabled-password",
-      "echo 'ansible:tu-contraseña' | sudo chpasswd",
+      "echo 'ansible:ansible' | sudo chpasswd",
       "echo 'ansible ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/ansible",
       "sudo sed -i 's/^#PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config",
       "sudo systemctl restart sshd"

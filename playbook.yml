@@ -1,4 +1,4 @@
-- hosts: production
+- hosts: produccion
   become: yes
   tasks:
   - name: Instalar Nginx
@@ -27,7 +27,7 @@
 
   - name: Copiar el build de React al servidor
     copy:
-      src: /home/erick_mayorga_r/ansibleDespliegue/practica1sa-201901758-app/dist
+      src: /home/erick_mayorga_r/ansibleDespliegue/Practica1SA-201901758/practica1sa-201901758-app/dist
       dest: /var/www/react_app
       mode: '0755'
 
