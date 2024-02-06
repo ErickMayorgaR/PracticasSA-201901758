@@ -33,16 +33,17 @@ resource "google_compute_firewall" "web"{
 }
 
 
-resource "google_compute_address" "prod_vm_ip" {
-  name   = "prod-vm-ip"
+resource "google_compute_address" "prod_vm_ip_f" {
+  name   = "prod-vm-ip-f"
   region = "us-central1"
 }
 
 
 resource "google_compute_instance" "prod-vm" {
-    name         = "prod-vm"
+    name         = "prod-vm-f"
     machine_type = "e2-micro"
     zone         = "us-central1-a"
+     tags        = ["http-server", "https-server", "web-access"] 
 
     boot_disk {
         initialize_params {
@@ -53,7 +54,7 @@ resource "google_compute_instance" "prod-vm" {
     network_interface {
         network = local.network
         access_config {
-        nat_ip = google_compute_address.prod_vm_ip.address
+        nat_ip = google_compute_address.prod_vm_ip_f.address
         }
     }
 
@@ -80,7 +81,7 @@ resource "google_compute_instance" "prod-vm" {
 
 
 resource "google_compute_instance" "ansible" {
-    name         = "ansible"
+    name         = "ansible-vm"
     machine_type = "e2-micro"
     zone         = "us-central1-a"
 
@@ -93,13 +94,11 @@ resource "google_compute_instance" "ansible" {
     network_interface {
         network = local.network
         access_config {
-            // Ephemeral IP
         }
     }
 
 
      provisioner "remote-exec" {
-    // Asegúrate de que la conexión use un formato compatible y las claves correctas
     connection {
       type        = "ssh"
       host        = self.network_interface[0].access_config[0].nat_ip
