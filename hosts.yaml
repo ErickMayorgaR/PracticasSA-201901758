@@ -1,8 +1,0 @@
-produccion:
-        hosts:
-          prod1:
-        vars:
-        ansible_become: true
-        ansible_become_
-        ansible_user: ansible
-...
