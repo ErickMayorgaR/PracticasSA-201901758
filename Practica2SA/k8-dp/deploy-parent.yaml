@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumir-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumir-service
+  template:
+    metadata:
+      labels:
+        app: consumir-service
+    spec:
+      containers:
+      - name: consumir-service-container
+        image: consumir-service:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumir-service
+spec:
+  selector:
+    app: consumir-service
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: LoadBalancer
