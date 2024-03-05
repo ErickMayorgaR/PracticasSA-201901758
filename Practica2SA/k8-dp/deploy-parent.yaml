@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
       - name: consumir-service-container
-        image: consumir-service:latest
+        image: erickmayorgar/consumir-service:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "200m"
         ports:
         - containerPort: 3000
 ---
@@ -26,6 +30,6 @@ spec:
   selector:
     app: consumir-service
   ports:
-    - port: 80
+    - port: 3000
       targetPort: 3000
   type: LoadBalancer

@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
       - name: genderize-service-container
-        image: genderize-service:latest
+        image: erickmayorgar/genderize-service:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "200m"
         ports:
         - containerPort: 3001
 ---

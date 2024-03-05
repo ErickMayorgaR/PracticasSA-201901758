@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
       - name: agify-service-container
-        image: agify-service:latest
+        image: erickmayorgar/agify-service:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "200m"
         ports:
         - containerPort: 3002
 ---
